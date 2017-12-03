@@ -155,6 +155,7 @@ void enableIMU()
 	write (fd, (unsigned int)dataArray, 2) ;
 	
 	// read data
+	unsigned char writeData[1] = {0};
 	writeData[0]=LSM6DS3_ACC_GYRO_CTRL4_C;
 	write (fd, (unsigned int)writeData, 1) ;
 	read (fd, dataToWrite, 1) ;
