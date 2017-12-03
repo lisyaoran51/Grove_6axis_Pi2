@@ -154,22 +154,10 @@ void enableIMU()
 		printf("error opening i2c channel\n\r");
 	}
 	write (fd, (unsigned int)dataArray, 2) ;
-	//if((e=wiringPiI2CWrite(fd, (unsigned int)dataArray))<0){
-	//	printf("error writing to slave\n\r");
-	//}
 	
-	//Set the ODR bit
-	//errorsAndWarnings += myIMU.readRegister(&dataToWrite, LSM6DS3_ACC_GYRO_CTRL4_C);
-	//dataToWrite &= ~((uint8_t)LSM6DS3_ACC_GYRO_BW_SCAL_ODR_ENABLED);
-	
-	
-	
- // Enable magnetometer
- //       writeMagReg(LSM303_MR_REG_M, 0x00);  // enable magnometer
-
- // Enable Gyro
- //       writeGyrReg(L3G_CTRL_REG1, 0b00001111); // Normal power mode, all axes enabled
- //       writeGyrReg(L3G_CTRL_REG4, 0b00110000); // Continuos update, 2000 dps full scale
+	dataArray[0]=LSM6DS3_ACC_GYRO_CTRL4_C;
+	dataArray[1]=0b10000000;
+	write (fd, (unsigned int)dataArray, 2) ;
 
 }
 
