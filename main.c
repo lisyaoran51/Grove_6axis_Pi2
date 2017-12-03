@@ -20,6 +20,9 @@
 #include "sensor.c"
 #include "i2c-dev.h"
 
+#include <wiringPi.h>
+#include <wiringPiI2C.h>
+
 #define X   0
 #define Y   1
 #define Z   2
@@ -138,7 +141,7 @@ int main(int argc, char *argv[])
 	for (;;)
 	{
 		read (fd, readData, 2) ;
-		for (i = 0 ; i < 16 ; ++i)
+		for (int i = 0 ; i < 16 ; ++i)
 		  printf ("  %02X", readData [i]) ;
 		printf ("\n") ;
 		sleep (1) ;
@@ -147,6 +150,7 @@ int main(int argc, char *argv[])
 	//Serial.print(" X = ");
 	//Serial.println(temp); 
 	
+	/* for reference
 	status_t LSM6DS3Core::readRegisterInt16( int16_t* outputPointer, uint8_t offset )
 	{
 		uint8_t myBuffer[2];
@@ -155,9 +159,9 @@ int main(int argc, char *argv[])
 		
 		*outputPointer = output;
 		return returnError;
-	}
+	}*/
 	
-
+	/*
 	//Convert Gyro raw to degrees per second
 	rate_gyr_x = (float) *gyr_raw * G_GAIN;
 	rate_gyr_y = (float) *(gyr_raw+1) * G_GAIN;
@@ -189,7 +193,7 @@ int main(int argc, char *argv[])
 //      Complementary filter used to combine the accelerometer and gyro values.
 	CFangleX=AA*(CFangleX+rate_gyr_x*DT) +(1 - AA) * AccXangle;
 	CFangleY=AA*(CFangleY+rate_gyr_y*DT) +(1 - AA) * AccYangle;
-
+	*/
 
 	printf ("   GyroX  %7.3f \t AccXangle \e[m %7.3f \t \033[22;31mCFangleX %7.3f\033[0m\t GyroY  %7.3f \t AccYangle %7.3f \t \033[22;36mCFangleY %7.3f\t\033[0m\n",gyroXangle,AccXangle,CFangleX,gyroYangle,AccYangle,CFangleY);
 

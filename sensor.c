@@ -146,7 +146,7 @@ void enableIMU()
 	int fd;
 	unsigned char dataArray[2] = {0};
 	dataArray[0]=LSM6DS3_ACC_GYRO_CTRL1_XL;
-	dataArray[1]=dataToWrite
+	dataArray[1]=dataToWrite;
 	if((fd=wiringPiI2CSetup(I2CAddress))<0){
 		printf("error opening i2c channel\n\r");
 	}
