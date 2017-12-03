@@ -67,12 +67,12 @@ int main(int argc, char *argv[])
 
 	enableIMU();
 
-	FILE *f = fopen("file.txt", "ab+");
+	FILE *f = fopen("file.txt", "w+");
 	if (f == NULL)
 	{
-		int fd = open("file.txt", O_RDWR | O_CREAT, S_IRUSR | S_IRGRP | S_IROTH);
-		close(fd);
-		f = fopen("file.txt", "wb");
+		//int fd = open("file.txt", O_RDWR | O_CREAT, S_IRUSR | S_IRGRP | S_IROTH);
+		//close(fd);
+		f = fopen("file.txt", "w+");
 		if (f == NULL)
 		{
 			printf("Error opening file!\n");
