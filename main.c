@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
 	read (fd, readData, 2) ;
 	int16_t output0 = (int16_t)readData[0];
 	int16_t output1 = (int16_t)(readData[1] << 8);
-	int16_t output = (int16_t)readData[0] | int16_t(readData[1] << 8);
+	int16_t output = output0 | output1;
 	printf ("  %d\n", output) ;
 	//printf ("  %02X", readData [0]) ;
 	//printf ("  %02X\n", readData [1]) ;
