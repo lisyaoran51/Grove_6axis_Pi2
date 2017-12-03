@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 
 	enableIMU();
 
-	FILE *f = fopen("file.txt", "w");
+	FILE *f = fopen("file.txt", "ab+");
 	if (f == NULL)
 {
     printf("Error opening file!\n");
