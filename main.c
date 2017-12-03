@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 	int fd;
 	// set offset
 	unsigned char writeData[1] = {0};
-	writeData[0]=LSM6DS3_ACC_GYRO_OUTX_L_XL;
+	writeData[0]=LSM6DS3_ACC_GYRO_OUTX_H_XL;
 	if((fd=wiringPiI2CSetup(I2CAddress))<0){
 		printf("error opening i2c channel\n\r");
 	}
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 	printf (" X:  %f", output) ;
 	
 	
-	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_L_XL;
+	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_H_XL;
 	write (fd, (unsigned int)writeData, 1) ;
 	// read data
 	read (fd, readData, 2) ;
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 	printf (" Y:  %f", output) ;
 	
 	
-	writeData[0]=LSM6DS3_ACC_GYRO_OUTZ_L_XL;
+	writeData[0]=LSM6DS3_ACC_GYRO_OUTZ_H_XL;
 	write (fd, (unsigned int)writeData, 1) ;
 	// read data
 	read (fd, readData, 2) ;
