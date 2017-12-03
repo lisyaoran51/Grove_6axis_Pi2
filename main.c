@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
 	int fd;
 	// set offset
 	unsigned char writeData[1] = {0};
-	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_L_XL;
+	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_L_G;
 	if((fd=wiringPiI2CSetup(I2CAddress))<0){
 		printf("error opening i2c channel\n\r");
 	}
