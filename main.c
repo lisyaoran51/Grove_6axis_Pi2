@@ -20,8 +20,6 @@
 #include "sensor.c"
 #include "i2c-dev.h"
 
-#include <wiringPi.h>
-#include <wiringPiI2C.h>
 
 #define X   0
 #define Y   1

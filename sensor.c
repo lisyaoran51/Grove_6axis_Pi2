@@ -4,6 +4,9 @@
 //#include "gyro.h"
 #include "LSM6DS3.h"
 
+#include <wiringPi.h>
+#include <wiringPiI2C.h>
+
 int file;
 
 void  readBlock(uint8_t command, uint8_t size, uint8_t *data)
