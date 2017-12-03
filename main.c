@@ -68,11 +68,16 @@ int main(int argc, char *argv[])
 
 	FILE *f = fopen("file.txt", "ab+");
 	if (f == NULL)
-{
-	f = fopen("file.txt", "wb");
-    //printf("Error opening file!\n");
-	//usleep(100000000000);
-}
+	{
+		f = fopen("file.txt", "wb");
+		if (f == NULL)
+		{
+			printf("Error opening file!\n");
+			usleep(100000000000);
+		}
+		//printf("Error opening file!\n");
+		//usleep(100000000000);
+	}
 
 
 	while(1)
