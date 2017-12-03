@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
 	//int16_t output = (int16_t)readData[0] | int16_t(readData[1] << 8);
 	
 	printf ("  %02X", readData [0]) ;
-	printf ("  %02X", readData [1]) ;
+	printf ("  %02X\n", readData [1]) ;
 	//for (;;)
 	//{
 	//	read (fd, readData, 2) ;
@@ -208,7 +208,7 @@ int main(int argc, char *argv[])
             usleep(100);
         }
 
-	printf("Loop Time %d\t", mymillis()- startInt);
+	//printf("Loop Time %d\t", mymillis()- startInt);
     }
 }
 
