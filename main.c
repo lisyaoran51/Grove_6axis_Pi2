@@ -123,49 +123,23 @@ int main(int argc, char *argv[])
 	int fd;
 	// set offset
 	unsigned char writeData[1] = {0};
-	writeData[0]=LSM6DS3_ACC_GYRO_OUTX_L_XL;
+	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_L_XL;
 	if((fd=wiringPiI2CSetup(I2CAddress))<0){
 		printf("error opening i2c channel\n\r");
 	}
 	write (fd, (unsigned int)writeData, 1) ;
 	// read data
-	// Wire.requestFrom(I2CAddress, length);
-	// c = Wire.read()
 	unsigned char readData [2] ;
-	if ((fd = wiringPiI2CSetup (I2CAddress)) < 0)
-	{
-		printf("error opening i2c channel\n\r");
-	}
 	read (fd, readData, 2) ;
 	int16_t output0 = (int16_t)readData[0];
 	int16_t output1 = (int16_t)(readData[1] << 8);
 	int16_t output01 = output0 | output1;
 	float output = (float)output01 * 0.061 * (16 >> 1) / 1000;
 	printf ("  %f\n", output) ;
-	//printf ("  %02X", readData [0]) ;
-	//printf ("  %02X\n", readData [1]) ;
-	//for (;;)
-	//{
-	//	read (fd, readData, 2) ;
-	//	for (int i = 0 ; i < 2 ; ++i)
-	//	  printf ("  %02X", readData [i]) ;
-	//	printf ("\n") ;
-	//	sleep (1) ;
-	//}
 	
 	//Serial.print(" X = ");
 	//Serial.println(temp); 
 	
-	/* for reference
-	status_t LSM6DS3Core::readRegisterInt16( int16_t* outputPointer, uint8_t offset )
-	{
-		uint8_t myBuffer[2];
-		status_t returnError = readRegisterRegion(myBuffer, offset, 2);  //Does memory transfer
-		int16_t output = (int16_t)myBuffer[0] | int16_t(myBuffer[1] << 8);
-		
-		*outputPointer = output;
-		return returnError;
-	}*/
 	
 	/*
 	//Convert Gyro raw to degrees per second
