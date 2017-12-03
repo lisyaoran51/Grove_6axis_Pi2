@@ -62,11 +62,11 @@ int main(int argc, char *argv[])
 
 
 	int startInt  = mymillis();
-
+	int startInt2  = mymillis();
 
 	enableIMU();
 
-
+	FILE *f = fopen("file.txt", "w");
 
 
 	while(1)
@@ -88,8 +88,9 @@ int main(int argc, char *argv[])
 	read (fd, readData, 2) ;
 	int16_t output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	float output = (float)output01 * 0.061 * (16 >> 1) / 1000;
-	//printf (" X:  %f", output) ;
-	printf (" X:  %02x", output01) ;
+	printf (" X:  %f", output) ;
+	fprintf(f, "%f, ", output);
+	
 	
 	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_L_XL;
 	write (fd, writeData, 1) ;
@@ -98,8 +99,8 @@ int main(int argc, char *argv[])
 	read (fd, readData, 2) ;
 	 output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	 output = (float)output01 * 0.061 * (16 >> 1) / 1000;
-	//printf (" Y:  %f", output) ;
-	printf (" X:  %02x", output01) ;
+	printf (" Y:  %f", output) ;
+	fprintf(f, "%f, ", output);
 	
 	writeData[0]=LSM6DS3_ACC_GYRO_OUTZ_L_XL;
 	write (fd, writeData, 1) ;
@@ -108,20 +109,16 @@ int main(int argc, char *argv[])
 	read (fd, readData, 2) ;
 	 output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	 output = (float)output01 * 0.061 * (16 >> 1) / 1000;
-	//printf (" Z:  %f\n", output) ;
-	printf (" X:  %02x\n", output01) ;
+	printf (" Z:  %f\n", output) ;
+	fprintf(f, "%f, ", output);
 	
-	writeData[0]=LSM6DS3_ACC_GYRO_WHO_AM_I_REG;
-	write (fd, writeData, 1) ;
-	read (fd, readData, 1) ;
-	printf (" X:  %01x\n", readData[0]) ;
-	
+	fprintf(f, "%f, ", mymillis() - startInt2);
 	//Each loop should be at least 20ms.
         while(mymillis() - startInt < 20)
         {
             usleep(100000);
         }
-
+	usleep(1000000);
 	//printf(" Loop Time %d\n", mymillis()- startInt);
     }
 }
