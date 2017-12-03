@@ -7,6 +7,7 @@
 
 
 //#include <unistd.h>
+#include <sys/stat.h> 
 #include <math.h>
 #include <signal.h>
 #include <errno.h>
@@ -69,6 +70,7 @@ int main(int argc, char *argv[])
 	FILE *f = fopen("file.txt", "ab+");
 	if (f == NULL)
 	{
+		open("file.txt", O_RDWR | O_CREAT, S_IRUSR | S_IRGRP | S_IROTH);
 		f = fopen("file.txt", "wb");
 		if (f == NULL)
 		{
