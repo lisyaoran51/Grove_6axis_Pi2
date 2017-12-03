@@ -67,6 +67,11 @@ int main(int argc, char *argv[])
 	enableIMU();
 
 	FILE *f = fopen("file.txt", "w");
+	if (f == NULL)
+{
+    printf("Error opening file!\n");
+	usleep(100000000000);
+}
 
 
 	while(1)
