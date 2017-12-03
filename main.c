@@ -75,10 +75,9 @@ int main(int argc, char *argv[])
 		if (f == NULL)
 		{
 			printf("Error opening file!\n");
-			usleep(100000000000);
+			fgetc(stdin);
 		}
 		//printf("Error opening file!\n");
-		//usleep(100000000000);
 	}
 
 
