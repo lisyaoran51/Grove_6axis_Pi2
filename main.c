@@ -60,47 +60,12 @@ int timeval_subtract(struct timeval *result, struct timeval *t2, struct timeval 
 int main(int argc, char *argv[])
 {
 
-	float rate_gyr_y = 0.0;   // [deg/s]
-	float rate_gyr_x = 0.0;    // [deg/s]
-	float rate_gyr_z = 0.0;     // [deg/s]
-
-
-	int  *Pacc_raw;
-	int  *Pmag_raw;
-	int  *Pgyr_raw;
-	int  acc_raw[3];
-	int  mag_raw[3];
-	int  gyr_raw[3];
-
-	Pacc_raw = acc_raw;
-	Pmag_raw = mag_raw;
-	Pgyr_raw = gyr_raw;
-
-
-	float gyroXangle = 0.0;
-	float gyroYangle = 0.0;
-	float gyroZangle = 0.0;
-	float AccYangle = 0.0;
-	float AccXangle = 0.0;
-	float CFangleX = 0.0;
-	float CFangleY = 0.0;
 
 	int startInt  = mymillis();
-	struct  timeval tvBegin, tvEnd,tvDiff;
 
-	signed int acc_y = 0;
-	signed int acc_x = 0;
-	signed int acc_z = 0;
-	signed int gyr_x = 0;
-	signed int gyr_y = 0;
-	signed int gyr_z = 0;
-
-
-        signal(SIGINT, INThandler);
 
 	enableIMU();
 
-	gettimeofday(&tvBegin, NULL);
 
 
 
@@ -112,7 +77,7 @@ int main(int argc, char *argv[])
 	int fd;
 	// set offset
 	unsigned char writeData[1] = {0};
-	writeData[0]=LSM6DS3_ACC_GYRO_OUTX_L_XL;
+	writeData[0]=LSM6DS3_ACC_GYRO_OUTX_L_G;
 	if((fd=wiringPiI2CSetup(I2CAddress))<0){
 		printf("error opening i2c channel\n\r");
 	}
@@ -125,7 +90,7 @@ int main(int argc, char *argv[])
 	printf (" X:  %f", output) ;
 	
 	
-	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_L_XL;
+	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_L_G;
 	write (fd, (unsigned int)writeData, 1) ;
 	// read data
 	read (fd, readData, 2) ;
@@ -134,13 +99,13 @@ int main(int argc, char *argv[])
 	printf (" Y:  %f", output) ;
 	
 	
-	writeData[0]=LSM6DS3_ACC_GYRO_OUTZ_L_XL;
+	writeData[0]=LSM6DS3_ACC_GYRO_OUTZ_L_G;
 	write (fd, (unsigned int)writeData, 1) ;
 	// read data
 	read (fd, readData, 2) ;
 	 output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	 output = (float)output01 * 0.061 * (16 >> 1) / 1000;
-	printf ("Z:  %f\n", output) ;
+	printf ("Z:  %f", output) ;
 	
 	
 	//Each loop should be at least 20ms.
@@ -149,7 +114,7 @@ int main(int argc, char *argv[])
             usleep(100000);
         }
 
-	//printf("Loop Time %d\t", mymillis()- startInt);
+	printf(" Loop Time %d\n", mymillis()- startInt);
     }
 }
 
