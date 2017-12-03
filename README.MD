@@ -3,7 +3,8 @@
 Requires WiringPi
 
 Compile with;
-gcc -o main -l rt main.c -lm
+git pull origin
+gcc -o main -l rt main.c -lm -IwiringPi
 
 rpi accelerometer
 http://ozzmaker.com/guide-to-interfacing-a-gyro-and-accelerometer-with-a-raspberry-pi/
