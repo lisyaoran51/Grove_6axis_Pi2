@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
 	read (fd, readData, 2) ;
 	int16_t output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	float output = (float)output01 * 0.061 * (16 >> 1) / 1000;
-	printf ("X:  %f\n", output) ;
+	printf (" X:  %f", output) ;
 	
 	
 	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_L_XL;
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
 	read (fd, readData, 2) ;
 	 output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	 output = (float)output01 * 0.061 * (16 >> 1) / 1000;
-	printf ("Y:  %f\n", output) ;
+	printf (" Y:  %f", output) ;
 	
 	
 	writeData[0]=LSM6DS3_ACC_GYRO_OUTZ_L_XL;
