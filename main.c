@@ -108,22 +108,11 @@ int main(int argc, char *argv[])
 	{
 	startInt = mymillis();
 
-
-	//read ACC and GYR data
-	//readMAG(Pmag_raw);
-	//readACC(Pacc_raw);
-	//readGYR(Pgyr_raw);
 	
-	//Acelerometer axis X
-	//int16_t temp;
-	//if( myIMU.readRegisterInt16(&temp, LSM6DS3_ACC_GYRO_OUTX_L_XL) != 0 )
-	//{
-	//	errorsAndWarnings++;
-	//}
 	int fd;
 	// set offset
 	unsigned char writeData[1] = {0};
-	writeData[0]=LSM6DS3_ACC_GYRO_SENSORHUB1_REG;
+	writeData[0]=LSM6DS3_ACC_GYRO_OUTX_L_XL;
 	if((fd=wiringPiI2CSetup(I2CAddress))<0){
 		printf("error opening i2c channel\n\r");
 	}
@@ -131,52 +120,29 @@ int main(int argc, char *argv[])
 	// read data
 	unsigned char readData [2] ;
 	read (fd, readData, 2) ;
-	int16_t output0 = (int16_t)readData[0];
-	int16_t output1 = (int16_t)(readData[1] << 8);
-	int16_t output01 = output0 | output1;
+	int16_t output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	float output = (float)output01 * 0.061 * (16 >> 1) / 1000;
-	printf ("  %f\n", output) ;
-	
-	//Serial.print(" X = ");
-	//Serial.println(temp); 
+	printf ("X:  %f\n", output) ;
 	
 	
-	/*
-	//Convert Gyro raw to degrees per second
-	rate_gyr_x = (float) *gyr_raw * G_GAIN;
-	rate_gyr_y = (float) *(gyr_raw+1) * G_GAIN;
-	rate_gyr_z = (float) *(gyr_raw+2) * G_GAIN;
-
-
-
-	//Calculate the angles from the gyro
-	gyroXangle+=rate_gyr_x*DT;
-	gyroYangle+=rate_gyr_y*DT;
-	gyroZangle+=rate_gyr_z*DT;
-
-
-
-
-	//Convert Accelerometer values to degrees
-	AccXangle = (float) (atan2(*(acc_raw+1),*(acc_raw+2))+M_PI)*RAD_TO_DEG;
-	AccYangle = (float) (atan2(*(acc_raw+2),*acc_raw)+M_PI)*RAD_TO_DEG;
-
-
-	//Change the rotation value of the accelerometer to -/+ 180
-	if (AccXangle >180)
-	{
-		AccXangle -= (float)360.0;
-	}
-	if (AccYangle >180)
-		AccYangle -= (float)360.0;
-
-//      Complementary filter used to combine the accelerometer and gyro values.
-	CFangleX=AA*(CFangleX+rate_gyr_x*DT) +(1 - AA) * AccXangle;
-	CFangleY=AA*(CFangleY+rate_gyr_y*DT) +(1 - AA) * AccYangle;
-	*/
-
-	// printf ("   GyroX  %7.3f \t AccXangle \e[m %7.3f \t \033[22;31mCFangleX %7.3f\033[0m\t GyroY  %7.3f \t AccYangle %7.3f \t \033[22;36mCFangleY %7.3f\t\033[0m\n",gyroXangle,AccXangle,CFangleX,gyroYangle,AccYangle,CFangleY);
-
+	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_L_XL;
+	write (fd, (unsigned int)writeData, 1) ;
+	// read data
+	read (fd, readData, 2) ;
+	 output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
+	 output = (float)output01 * 0.061 * (16 >> 1) / 1000;
+	printf ("Y:  %f\n", output) ;
+	
+	
+	writeData[0]=LSM6DS3_ACC_GYRO_OUTZ_L_XL;
+	write (fd, (unsigned int)writeData, 1) ;
+	// read data
+	read (fd, readData, 2) ;
+	 output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
+	 output = (float)output01 * 0.061 * (16 >> 1) / 1000;
+	printf ("Z:  %f\n", output) ;
+	
+	
 	//Each loop should be at least 20ms.
         while(mymillis() - startInt < 20)
         {
