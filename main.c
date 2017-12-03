@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 	int16_t output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	float output = (float)output01 * 0.061 * (16 >> 1) / 1000;
 	//printf (" X:  %f", output) ;
-	printf (" X:  %04x", output) ;
+	printf (" X:  %04x", output01) ;
 	
 	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_L_XL;
 	write (fd, (unsigned int)writeData, 1) ;
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 	 output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	 output = (float)output01 * 0.061 * (16 >> 1) / 1000;
 	//printf (" Y:  %f", output) ;
-	printf (" X:  %04x", output) ;
+	printf (" X:  %04x", output01) ;
 	
 	writeData[0]=LSM6DS3_ACC_GYRO_OUTZ_L_XL;
 	write (fd, (unsigned int)writeData, 1) ;
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 	 output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	 output = (float)output01 * 0.061 * (16 >> 1) / 1000;
 	//printf (" Z:  %f\n", output) ;
-	printf (" X:  %04x", output) ;
+	printf (" X:  %04x\n", output01) ;
 	
 	//Each loop should be at least 20ms.
         while(mymillis() - startInt < 20)
