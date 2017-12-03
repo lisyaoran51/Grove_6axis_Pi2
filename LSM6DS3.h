@@ -163,7 +163,7 @@ Distributed as-is; no warranty is given.
 #define LSM6DS3_ACC_GYRO_BW_XL_100Hz            	  0x02
 #define LSM6DS3_ACC_GYRO_FS_XL_8g 		              0x0C
 #define LSM6DS3_ACC_GYRO_ODR_XL_104Hz 		          0x40
-
+#define LSM6DS3_ACC_GYRO_BW_SCAL_ODR_ENABLED 		  0x80
 
 
 

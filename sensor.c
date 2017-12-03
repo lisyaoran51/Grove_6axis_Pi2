@@ -145,7 +145,6 @@ void enableIMU()
     dataToWrite |= LSM6DS3_ACC_GYRO_ODR_XL_104Hz;
 	
 	//Now, write the patched together data
-	//errorsAndWarnings += myIMU.writeRegister(LSM6DS3_ACC_GYRO_CTRL1_XL, dataToWrite);
 	int fd;
 	unsigned char dataArray[2] = {0};
 	dataArray[0]=LSM6DS3_ACC_GYRO_CTRL1_XL;
@@ -155,10 +154,19 @@ void enableIMU()
 	}
 	write (fd, (unsigned int)dataArray, 2) ;
 	
+	// read data
+	writeData[0]=LSM6DS3_ACC_GYRO_CTRL4_C;
+	write (fd, (unsigned int)writeData, 1) ;
+	read (fd, dataToWrite, 1) ;
+	dataToWrite &= ~((uint8_t)LSM6DS3_ACC_GYRO_BW_SCAL_ODR_ENABLED);
+	dataToWrite |= LSM6DS3_ACC_GYRO_BW_SCAL_ODR_ENABLED;
 	dataArray[0]=LSM6DS3_ACC_GYRO_CTRL4_C;
-	dataArray[1]=0b10000000;
+	dataArray[1]=dataToWrite;
 	write (fd, (unsigned int)dataArray, 2) ;
 
+	
+	
+	
 }
 
 
