@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
 	//Each loop should be at least 20ms.
         while(mymillis() - startInt < 20)
         {
-            msleep(100);
+            usleep(100000);
         }
 
 	//printf("Loop Time %d\t", mymillis()- startInt);
