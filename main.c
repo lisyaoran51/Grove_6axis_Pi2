@@ -111,6 +111,11 @@ int main(int argc, char *argv[])
 	//printf (" Z:  %f\n", output) ;
 	printf (" X:  %02x\n", output01) ;
 	
+	writeData[0]=LSM6DS3_ACC_GYRO_WHO_AM_I_REG;
+	write (fd, writeData, 1) ;
+	read (fd, readData, 1) ;
+	printf (" X:  %01x\n", readData[0]) ;
+	
 	//Each loop should be at least 20ms.
         while(mymillis() - startInt < 20)
         {
