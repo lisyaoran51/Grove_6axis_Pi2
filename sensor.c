@@ -142,7 +142,7 @@ void enableIMU()
     dataToWrite = 0; //Start Fresh!
     dataToWrite |= LSM6DS3_ACC_GYRO_BW_XL_100Hz;
     dataToWrite |= LSM6DS3_ACC_GYRO_FS_XL_8g;
-    dataToWrite |= LSM6DS3_ACC_GYRO_ODR_XL_104Hz;
+    dataToWrite |= LSM6DS3_ACC_GYRO_ODR_XL_416Hz;
 	
 	//Now, write the patched together data
 	int fd;
@@ -152,18 +152,18 @@ void enableIMU()
 	if((fd=wiringPiI2CSetup(I2CAddress))<0){
 		printf("error opening i2c channel\n\r");
 	}
-	write (fd, (unsigned int)dataArray, 2) ;
+	write (fd, dataArray, 2) ;
 	
 	// read data
 	unsigned char writeData[1] = {0};
 	writeData[0]=LSM6DS3_ACC_GYRO_CTRL4_C;
-	write (fd, (unsigned int)writeData, 1) ;
+	write (fd, writeData, 1) ;
 	read (fd, dataToWrite, 1) ;
 	dataToWrite &= ~((uint8_t)LSM6DS3_ACC_GYRO_BW_SCAL_ODR_ENABLED);
 	dataToWrite |= LSM6DS3_ACC_GYRO_BW_SCAL_ODR_ENABLED;
 	dataArray[0]=LSM6DS3_ACC_GYRO_CTRL4_C;
 	dataArray[1]=dataToWrite;
-	write (fd, (unsigned int)dataArray, 2) ;
+	write (fd, dataArray, 2) ;
 
 	
 	
