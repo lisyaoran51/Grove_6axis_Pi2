@@ -77,13 +77,13 @@ int main(int argc, char *argv[])
 	int fd;
 	// set offset
 	unsigned char writeData[1] = {0};
-	writeData[0]=LSM6DS3_ACC_GYRO_OUTX_L_G;
+	writeData[0]=LSM6DS3_ACC_GYRO_OUT_TEMP_L;
 	if((fd=wiringPiI2CSetup(I2CAddress))<0){
 		printf("error opening i2c channel\n\r");
 	}
 	write (fd, (unsigned int)writeData, 1) ;
 	// read data
-	unsigned char readData [2] ;
+	unsigned char readData [2];
 	read (fd, readData, 2) ;
 	int16_t output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	float output = (float)output01 * 0.061 * (16 >> 1) / 1000;
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 	read (fd, readData, 2) ;
 	 output01 = (int16_t)readData[0] | (int16_t)(readData[1] << 8);
 	 output = (float)output01 * 0.061 * (16 >> 1) / 1000;
-	printf ("Z:  %f", output) ;
+	printf (" Z:  %f\n", output) ;
 	
 	
 	//Each loop should be at least 20ms.
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
             usleep(100000);
         }
 
-	printf(" Loop Time %d\n", mymillis()- startInt);
+	//printf(" Loop Time %d\n", mymillis()- startInt);
     }
 }
 
