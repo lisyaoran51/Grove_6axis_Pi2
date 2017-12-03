@@ -6,7 +6,7 @@
 */
 
 
-#include <unistd.h>
+//#include <unistd.h>
 #include <math.h>
 #include <signal.h>
 #include <errno.h>
@@ -138,14 +138,18 @@ int main(int argc, char *argv[])
 	{
 		printf("error opening i2c channel\n\r");
 	}
-	for (;;)
-	{
-		read (fd, readData, 2) ;
-		for (int i = 0 ; i < 16 ; ++i)
-		  printf ("  %02X", readData [i]) ;
-		printf ("\n") ;
-		sleep (1) ;
-	}
+	read (fd, readData, 2) ;
+	int16_t output = (int16_t)readData[0] | int16_t(readData[1] << 8);
+	printf ("  %02X", readData [i]) ;
+	
+	//for (;;)
+	//{
+	//	read (fd, readData, 2) ;
+	//	for (int i = 0 ; i < 2 ; ++i)
+	//	  printf ("  %02X", readData [i]) ;
+	//	printf ("\n") ;
+	//	sleep (1) ;
+	//}
 	
 	//Serial.print(" X = ");
 	//Serial.println(temp); 
