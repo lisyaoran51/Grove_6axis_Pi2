@@ -70,12 +70,13 @@ int main(int argc, char *argv[])
 	FILE *f = fopen("file.txt", "ab+");
 	if (f == NULL)
 	{
-		open("file.txt", O_RDWR | O_CREAT, S_IRUSR | S_IRGRP | S_IROTH);
+		int fd = open("file.txt", O_RDWR | O_CREAT, S_IRUSR | S_IRGRP | S_IROTH);
+		close(fd);
 		f = fopen("file.txt", "wb");
 		if (f == NULL)
 		{
 			printf("Error opening file!\n");
-			fgetc(stdin);
+			EXIT(1);
 		}
 		//printf("Error opening file!\n");
 	}
