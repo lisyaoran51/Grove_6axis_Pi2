@@ -139,8 +139,9 @@ int main(int argc, char *argv[])
 	read (fd, readData, 2) ;
 	int16_t output0 = (int16_t)readData[0];
 	int16_t output1 = (int16_t)(readData[1] << 8);
-	int16_t output = output0 | output1;
-	printf ("  %d\n", output) ;
+	int16_t output01 = output0 | output1;
+	float output = (float)output01 * 0.061 * (16 >> 1) / 1000;
+	printf ("  %f\n", output) ;
 	//printf ("  %02X", readData [0]) ;
 	//printf ("  %02X\n", readData [1]) ;
 	//for (;;)
@@ -205,7 +206,7 @@ int main(int argc, char *argv[])
 	//Each loop should be at least 20ms.
         while(mymillis() - startInt < 20)
         {
-            usleep(100);
+            msleep(100);
         }
 
 	//printf("Loop Time %d\t", mymillis()- startInt);
