@@ -82,6 +82,7 @@ int main(int argc, char *argv[])
 		printf("error opening i2c channel\n\r");
 	}
 	write (fd, (unsigned int)writeData, 1) ;
+	usleep(10000);
 	// read data
 	unsigned char readData [2];
 	read (fd, readData, 2) ;
@@ -91,6 +92,7 @@ int main(int argc, char *argv[])
 	printf (" X:  %04x", output01) ;
 	
 	writeData[0]=LSM6DS3_ACC_GYRO_OUTY_L_XL;
+	usleep(10000);
 	write (fd, (unsigned int)writeData, 1) ;
 	// read data
 	read (fd, readData, 2) ;
@@ -100,6 +102,7 @@ int main(int argc, char *argv[])
 	printf (" X:  %04x", output01) ;
 	
 	writeData[0]=LSM6DS3_ACC_GYRO_OUTZ_L_XL;
+	usleep(10000);
 	write (fd, (unsigned int)writeData, 1) ;
 	// read data
 	read (fd, readData, 2) ;
